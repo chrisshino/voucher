@@ -21,7 +21,7 @@ func LogRequests(r *http.Request) {
 	}
 
 	log.WithFields(log.Fields{
-		"url":  r.URL.String(),
+		"url":  r.URL,
 		"path": r.URL.Path,
 		"form": r.Form,
 	}).Info("received request")

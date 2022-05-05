@@ -25,7 +25,7 @@ func getCheck() string {
 	return defaultConfig.Check
 }
 
-func getVoucherClient(ctx context.Context) (voucher.Interface, error) {
+func getVoucherClient() (voucher.Interface, error) {
 	options := []client.Option{
 		client.WithUserAgent(fmt.Sprintf("voucher-client/%s", version)),
 	}
@@ -39,6 +39,9 @@ func getVoucherClient(ctx context.Context) (voucher.Interface, error) {
 	default:
 		return nil, fmt.Errorf("invalid auth value: %q", defaultConfig.Auth)
 	}
+
+	ctx, cancel := newContext()
+	defer cancel()
 	return client.NewClientContext(ctx, defaultConfig.Server, options...)
 }
 

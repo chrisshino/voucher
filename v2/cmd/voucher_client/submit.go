@@ -36,14 +36,14 @@ func check(ctx context.Context, client voucher.Interface, check string, canonica
 func LookupAndCheck(args []string) {
 	var err error
 
-	ctx, cancel := newContext()
-	defer cancel()
-
-	client, err := getVoucherClient(ctx)
+	client, err := getVoucherClient()
 	if nil != err {
 		errorf("creating client failed: %s", err)
 		os.Exit(1)
 	}
+
+	ctx, cancel := newContext()
+	defer cancel()
 
 	canonicalRef, err := lookupCanonical(ctx, args[0])
 	if nil != err {
